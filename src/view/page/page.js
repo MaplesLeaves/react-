@@ -30,16 +30,33 @@ const data = [
 ]
 
 export default class Page extends React.Component {
+  constructor(){
+    super()
+    this.state = { // 初始化定义变量  在这里进行数据更改 如 vue的data return 里面的数据
+        data:data,
+        age: 15,
+        value: ''
+    }
+}
   clickAll(a,b){
-    console.error(a,b)
+    data.push({tags:[]})
+    this.setState({
+      data
+    })
   }
   onclickItem(){
-    console.error(this,123123)
+  }
+  getInitialState(){
+
+  }
+  componentWillMount(){
+    data[2].age =456
   }
 	render() {
 		return (
 			<div>
-				<Table dataSource={data}>
+        
+				<Table dataSource={this.state.data}>
 					<Column title="Age" dataIndex="age" key="age" />
 					<Column title="Address" dataIndex="address" key="address" />
 					<Column
@@ -66,8 +83,7 @@ export default class Page extends React.Component {
 						)}
 					/>
 				</Table>
-        {this.props.children}
-        <Button type="primary" size='small' onClick={()=>this.onclickItem(this)}>123123123</Button>
+        <Button type="primary" size='small' onClick={()=>this.onclickItem(this)}>123123123</Button>      
 			</div>
 		)
 	}
